@@ -1,0 +1,17 @@
+LICENSE
+README.md
+setup.py
+rulesai/__init__.py
+rulesai/cli.py
+rulesai/logger.py
+rulesai/ollama_utils.py
+rulesai/reglas.py
+rulesai/suricata_utils.py
+rulesai.egg-info/PKG-INFO
+rulesai.egg-info/SOURCES.txt
+rulesai.egg-info/dependency_links.txt
+rulesai.egg-info/entry_points.txt
+rulesai.egg-info/requires.txt
+rulesai.egg-info/top_level.txt
+rulesai/gui/__init__.py
+rulesai/gui/app.py

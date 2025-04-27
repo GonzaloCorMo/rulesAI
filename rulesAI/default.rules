@@ -1,0 +1,12 @@
+Here is a valid Suricata rule for blocking suspicious HTTP and HTTPS traffic based on the description provided:
+```
+# Blocks HTTP and HTTPS traffic with invalid TLS handshakes
+alert tcp any -> any 80,443 (msg:"Invalid TLS Handshake"; flowbits:set,investigate; content:"|16 03|"; offset:4; depth:5; pcre:"/^\x16\x03/"; http_request; sid:123456789; rev:1;)
+```
+This rule uses the `http_request` keyword to match HTTP and HTTPS traffic, and then checks for the presence of a specific pattern ( `|16 03|`) in the content of the first five bytes of the message. If this pattern is found, the rule triggers an alert and sets a `flowbits:set` flag to indicate that the flow should be investigated further. The `sid` field specifies the rule ID and the `rev` field specifies the revision number for the rule.
+```
+# TLS SNI Scanner Detection
+alert tls $HOME_NET any -> any 443 (msg:"TLS SNI Scanner"; sid:12345; rev:1;)
+```
+# Traffic http and https malicious
+alert tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"HTTP traffic to high risk website"; flow:established,to_server; content:"|30 20 6d 61 78 6b 65 79 2f 64 6f 6d 61 69 6e 3f|"; depth:4; pcre:"/^GET\s+([^\s]+)\s+HTTP\/[0-9\.]+\r?\n(?!Host:)*/i"; nocase; sid:123456789; rev:1;)

@@ -1,0 +1,3 @@
+[console_scripts]
+rulesai = rulesai.cli:main
+rulesai-gui = rulesai.gui.app:main

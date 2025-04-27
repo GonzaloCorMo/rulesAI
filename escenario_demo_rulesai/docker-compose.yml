@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  suricata:
+    image: jasonish/suricata:latest
+    container_name: suricata
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - SYS_NICE
+    volumes:
+      - ./rules:/etc/suricata/rules
+      - ./config/suricata.yaml:/etc/suricata/suricata.yaml
+    command: ["-c", "/etc/suricata/suricata.yaml", "-i", "wlo1"]
+    restart: unless-stopped
+
+  attacker:
+    image: kalilinux/kali-rolling
+    container_name: attacker
+    entrypoint: ["/bin/bash", "-c", "apt update && apt install -y nmap curl && bash"]
+    tty: true
+    restart: unless-stopped

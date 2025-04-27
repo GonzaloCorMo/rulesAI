@@ -1,0 +1,29 @@
+%YAML 1.1
+---
+default-rule-path: /etc/suricata/rules
+
+rule-files:
+  - custom.rules
+
+vars:
+  address-groups:
+    HOME_NET: "[192.168.0.0/16]"
+    EXTERNAL_NET: "!$HOME_NET"
+
+af-packet:
+  - interface: wlo1
+    cluster-id: 99
+    cluster-type: cluster_flow
+    defrag: yes
+
+outputs:
+  - fast:
+      enabled: yes
+      filename: fast.log
+      append: yes
+
+logging:
+  default-log-level: info
+  outputs:
+    - console:
+        enabled: yes

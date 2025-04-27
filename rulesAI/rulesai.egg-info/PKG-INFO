@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: rulesai
+Version: 1.0
+Summary: Generador de reglas de Suricata con IA local (Ollama), GUI y CLI
+Author: Gonzalo Cordeiro Mourelle
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: PyQt5
+Requires-Dist: requests
+Dynamic: author
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

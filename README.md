@@ -1,83 +1,79 @@
-# rulesAI
+# RulesAI – Generador de Reglas Suricata con IA Local
 
-rulesAI es una herramienta que genera reglas para Suricata utilizando inteligencia artificial local con Ollama. Permite generar, validar y aplicar reglas de detección de amenazas de forma automática.
+**RulesAI** es una herramienta avanzada para generar reglas de detección de amenazas en Suricata utilizando inteligencia artificial local vía [Ollama](https://ollama.com/). Permite describir una amenaza y recibir una regla válida lista para usar, tanto desde la línea de comandos como desde una interfaz gráfica intuitiva.
 
-## Instalación
+## 🚀 Características
 
-Se recomienda ejecutar la instalación con permisos de superusuario (`sudo`). Para instalar rulesAI, usa:
+- ✅ Soporte para IA local con Ollama
+- 🧠 Compatible con modelos como `codellama:13b`
+- 🖥️ Interfaz gráfica con PyQt5
+- 💻 Consola con opciones de prompt personalizado y guardado
+- 📦 Fácil instalación con `pipx`
+- 🔐 Uso local, sin necesidad de conexión a la nube
+
+## 📋 Requisitos
+
+- Python 3.7+
+- [Ollama](https://ollama.com) instalado y corriendo localmente
+- Modelo Ollama instalado (ej: `codellama:13b`)
+- pipx (opcional, recomendado)
+
+## ⚙️ Instalación
+
+1. Clonar o descargar el proyecto:
 
 ```bash
-sudo bash install.sh
+unzip rulesai_gui_and_cli_final.zip
+cd rulesai_full_project_ready
 ```
 
-El script de instalación:
-1. Pregunta si deseas instalar Ollama (necesario para rulesAI).
-2. Pregunta si deseas descargar el modelo `mistral:latest`.
-3. Crea la estructura de archivos en `/usr/local/rulesAI`.
-4. Copia el script `rulesAI.py` a la carpeta de instalación.
-5. Crea un alias `rai` para ejecutar el comando desde cualquier lugar.
-
-## Uso
-
-Una vez instalado, puedes generar reglas de Suricata con el siguiente comando:
+2. Instalar usando `pipx`:
 
 ```bash
-sudo -E rai -c "Detectar tráfico SSH sospechoso"
+pipx install .
 ```
 
-Esto generará una regla de detección basada en la descripción proporcionada y la guardará en el directorio de reglas.
+> Esto instalará los comandos `rulesai` (modo consola) y `rulesai-gui` (modo gráfico)
 
-### Opciones disponibles
+## 🧪 Uso
 
-- `-c, --consulta "texto"` → Especifica la amenaza a detectar (obligatorio).
-- `-o, --output "archivo.rules"` → Define el archivo donde se guardará la regla (por defecto en `rules/`).
-- `-i, --input "archivo.rules"` → Agrega la regla a un archivo existente.
-- `--apply` → Aplica las reglas generadas en Suricata.
-- `--validate` → Valida la sintaxis de la regla antes de guardarla.
-- `--validate-suricata` → Valida las reglas con Suricata antes de aplicarlas.
-- `--model "modelo"` → Especifica el modelo de IA a usar (por defecto `mistral:latest`).
-- `--uninstall` → Desinstala rulesAI completamente.
+### 🖥️ Interfaz gráfica
 
-### Ejemplos de uso
-
-Generar una regla y guardarla en un archivo específico:
 ```bash
-sudo -E rai -c "Detectar tráfico malicioso en el puerto 443" -o custom.rules
+rulesai-gui
 ```
 
-Generar una regla y validarla antes de guardarla:
+1. Introduce una descripción de la amenaza.
+2. (Opcional) Escribe un prompt personalizado.
+3. Selecciona el modelo Ollama.
+4. Haz clic en “Generar Regla”.
+5. Guarda la regla en un archivo `.rules`.
+
+### 💻 Consola
+
 ```bash
-sudo -E rai -c "Detectar tráfico de malware en HTTP" --validate
+rulesai -c "tráfico sospechoso por SSH" -m codellama:13b -o ssh.rules
 ```
 
-Generar y aplicar reglas directamente en Suricata:
-```bash
-sudo -E rai -c "Detectar intentos de explotación de RCE" --apply
+Parámetros disponibles:
+- `-c` o `--consulta`: Descripción de la amenaza
+- `-p` o `--prompt`: Prompt personalizado
+- `-m` o `--modelo`: Modelo Ollama a usar
+- `-o` o `--output`: Archivo donde guardar la regla
+
+## 📜 Ejemplo de salida
+
+```
+# Suspicious SSH scanning detected
+alert tcp $EXTERNAL_NET any -> $HOME_NET 22 (msg:"Possible SSH Scan"; flags:S; sid:100001;)
 ```
 
-Validar un archivo de reglas con Suricata:
-```bash
-sudo -E rai --validate-suricata -i custom.rules
-```
+## 📄 Licencia
 
-## Desinstalación
+Consulta el archivo [LICENSE.md](LICENSE.md).
 
-Si deseas eliminar rulesAI del sistema, usa:
-```bash
-sudo -E rai --uninstall
-```
-
-Esto eliminará la carpeta de instalación y el alias `rai`.
-
-## Requisitos
-- Python 3
-- Suricata instalado y configurado
-- Ollama con un modelo de IA compatible (`mistral:latest` recomendado)
-
-## Notas
-Se recomienda ejecutar todos los comandos con `sudo -E` para evitar problemas de permisos al acceder a las configuraciones de Suricata y directorios protegidos.
+Este software es de uso personal y no comercial. Su modificación o redistribución no está permitida.
 
 ---
 
-© 2024 rulesAI - Proyecto de generación de reglas para Suricata con IA local.
-
+Desarrollado por **Gonzalo Cordeiro Mourelle**.
